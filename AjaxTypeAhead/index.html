@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <form class="search-form">
+        <input type="text" class="search" placeholder="Search">
+        <ul class="suggestions">
+            <li>Filter for a city</li>
+            <li>or a state</li>
+        </ul>
+    </form>
+
+    <script>
+        //specifying where to get the data from 
+        const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+        const cities = [];
+        //fetching the data from the endpoint(the url specified)
+        //The fetch method returns a promise: promises a result(pending, fulfilled, unfulfilled) at some point
+        //The result is a single value that does not have a desired structure 
+        fetch(endpoint).then(response => response.json()).then(data => cities.push(...data));
+        //Udata: 'unstructured data(?)'  convreted to json format     data pushed into cities array
+
+        function findMatches(wordToMatch, cities) {
+            return cities.filter(place => {
+                // here we need to figure out if the city or state matches what was searched
+                //A regular expression is an object that describes a pattern of characters.
+                //Regular expressions are used to perform pattern-matching and "search-and-replace" functions on text.
+                const regex = new RegExp(wordToMatch, 'gi');
+                //g: search globally; i: make the search input case insensitve
+                console.log(regex);
+                return place.city.match(regex) || place.state.match(regex)
+            });
+        }
+
+        // ?
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function displayMatches() {
+            const matchArray = findMatches(this.value, cities);
+            const html = matchArray.map(place => {
+                const regex = new RegExp(this.value, 'gi');
+                const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+                const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+                return `
+                        <li>
+                         <span class="name">${cityName}, ${stateName}</span>
+                         <span class="population">${numberWithCommas(place.population)}</span>
+                        </li>`;
+            }).join('');
+            suggestions.innerHTML = html;
+            if(searchInput.value == ''){
+                suggestions.innerHTML = `<li>Filter for a city</li>
+            <li>or a state</li>`
+            }
+        }
+
+        const searchInput = document.querySelector('.search');
+        const suggestions = document.querySelector('.suggestions');
+
+        searchInput.addEventListener('change', displayMatches);
+        searchInput.addEventListener('keyup', displayMatches);
+        
+
+
+    </script>
+</body>

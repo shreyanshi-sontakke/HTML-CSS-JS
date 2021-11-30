@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsoleMethods</title>
+</head>
+
+<body>
+    <p>Voolo!</p>
+
+    <script>
+        const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+        const p = document.querySelector('p');
+
+        function Update() {
+            p.style.fontSize = '30px';
+            p.style.color = 'red';
+        }
+
+        p.addEventListener("click", Update);
+
+        // Regular
+
+        // Interpolated
+
+        // Styled
+        console.log('%c This is a styled text', 'font-size: 30px');
+        // warning!
+        console.warn('This is a warning text');
+
+        // Error :|
+        console.error('This is an error text');
+
+        // Info
+        console.info('This is an info text');
+
+        // Testing
+        //The second part of the method works only when the assertion is wrong.
+        console.assert(1 === 1, 'this is wrong'); //The second part won't be console logged
+
+        // clearing
+        console.clear();
+
+        // Viewing DOM Elements
+        //console.log(p);
+        //console.dir(p);
+
+        // Grouping together
+        dogs.forEach(dog => {
+            console.groupCollapsed(`${dog.name}`);
+            console.log(`${dog.name}`);
+            console.log(`${dog.name} is ${dog.age} years old`);
+            console.groupEnd(`${dog.name}`); //If this line is not present, the dogs preceding the first dog get nested in the first dogs group.
+        })
+
+        // counting
+        console.count('Wes');
+        console.count('Wes');
+        console.count('Steve');
+        console.count('Steve');
+        console.count('Wes');
+        console.count('Steve');
+        console.count('Wes');
+        console.count('Steve');
+        console.count('Steve');
+        console.count('Steve');
+        console.count('Steve');
+        console.count('Steve');
+
+        // timing
+        console.time('fetching data');
+        fetch('https://api.github.com/users/wesbos')
+            .then(data => data.json())
+            .then(data => {
+                console.timeEnd('fetching data'); //would not work without console.time
+                //console.log(data);
+            });
+
+
+
+
+    </script>
+
+</body>
+
+</html>

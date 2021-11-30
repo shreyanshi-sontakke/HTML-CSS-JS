@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>References and Copies</title>
+</head>
+<body>
+    <script>
+        //JS always passes by value for primitive data types
+        //but passes by refrence for non-primitive data type: array, object functino.
+
+        //Passing by value means that every time you assign a value to a variable, a copy of that value is created.
+        let a = 1;
+        let b = a; 
+        console.log(a, b); // 1 1
+        b = b + 2;
+        console.log(a, b); // 1 3 Since a copy of value of a was passed, the value of a on changing b was not affected
+        a = 5;
+        console.log(a,b); // 5 3 Since a copy of a was passed to b, on changing 'a' 'b' was not affected.
+        
+        //Passing by reference
+        //When creating an object you’re given a reference to that object, it does not directly hold the object. 
+        //If 2 variables hold the same reference, then changing the object reflects in both variables.
+
+        //The following statement would create an array, defines a varible x, and initializes the variable with refrence of that array
+        let x = [1,2,3];
+        //defines a variable y, and initializes y with the reference stored in x variable
+        let y = x;
+        console.log(x,y)
+        //now if I change y
+        y.push(4);
+        console.log(x, y); //The change done is reflected in both the arrays.
+        //and say if i do:
+        y = [];
+        console.log(x, y);
+        //This does not change x.
+        //When you assign a new value to one of the variables, you're just modifying the value that variable holds. 
+        //The variable now ceases to hold a reference to the object, and instead holds something else. 
+        //The other variable still holds its reference to the original object, the assignment didn't influence it at all.
+        
+        
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Click and Drag</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="items">
+        <div class="item item1">01</div>
+        <div class="item item2">02</div>
+        <div class="item item3">03</div>
+        <div class="item item4">04</div>
+        <div class="item item5">05</div>
+        <div class="item item6">06</div>
+        <div class="item item7">07</div>
+        <div class="item item8">08</div>
+        <div class="item item9">09</div>
+        <div class="item item10">10</div>
+        <div class="item item11">11</div>
+        <div class="item item12">12</div>
+        <div class="item item13">13</div>
+        <div class="item item14">14</div>
+        <div class="item item15">15</div>
+        <div class="item item16">16</div>
+        <div class="item item17">17</div>
+        <div class="item item18">18</div>
+        <div class="item item19">19</div>
+        <div class="item item20">20</div>
+        <div class="item item21">21</div>
+        <div class="item item22">22</div>
+        <div class="item item23">23</div>
+        <div class="item item24">24</div>
+        <div class="item item25">25</div>
+    </div>
+
+    <script>
+        //Getting all items into slider using items class
+        const slider = document.querySelector('.items');
+        //Boolean variable for mouse actions -- lisdown stands for clicked and didnt' let go = false
+        let isDown = false;
+        //startX stores where you've clickdd
+        let startX;
+        //
+        let scrollLeft;
+
+        //listens if you have clicked and not let go
+        slider.addEventListener('mousedown', (e) => {
+            //then set 
+            isDown = true;
+            //adding the css under active class
+            slider.classList.add('active');
+            //pageX: returns the X (horizontal) coordinate (in pixels) at which the mouse was clicked, relative to the left edge of the entire document.
+            // offsetleft: returns the left position (in pixels) relative to the left side the offsetParent element.
+            startX = e.pageX - slider.offsetLeft;
+            //property gets or sets the number of pixels that an element's content is scrolled from its left edge.
+            scrollLeft = slider.scrollLeft;
+            console.log({scrollLeft});
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            //When the cursor is moved away for the slider execute this: 
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        //mouseup event is fired at an Element when a button on a pointing device (such as a mouse or trackpad) is released while the pointer is located inside it.
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        // mousemove event is fired at an element when a pointing device (usually a mouse) is moved while the cursor's hotspot is inside it.
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;  // stop the fn from running
+            //?
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 3;
+            slider.scrollLeft = scrollLeft - walk;
+            //console.log(scrollLeft - walk);
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Canvas 😮</title>
+    <style>
+        html, body {
+            margin: 0;
+        }
+        /* #draw{
+            /* border: 2px black solid; 
+        } */
+
+    </style>
+</head>
+
+<body>
+    <!-- The <canvas> tag in HTML is used to draw graphics on a web page using JavaScript.
+         ---It can be used to draw paths, boxes, texts, gradients, and adding images. By default, it does not contain borders and text.
+        --- Giving default height and width to the canvas -->
+        <canvas id="draw"></canvas>
+        <!-- <button id="erase">Eraser</button> -->
+    <script> 
+        const canvas = document.querySelector('#draw');
+        
+        //Setting canvas size to be equal to size of the viewport        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        //You do not draw directly on the canvas you draw on the context(?)
+        //The getContext() function returns the drawing context -
+        // which is an object that has all the drawing properties and functions you use to draw on the canvas.
+        const context = canvas.getContext('2d');
+        context.lineWidth = 5;
+        //strokeStyle: Sets or returns the color, gradient, or pattern used for strokes
+        context.strokeStyle = '#a832a6'; 
+        context.lineJoin = 'round';
+        context.lineCap = 'round';
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        function draw(e){
+            if(!isDrawing) return; //stop running the funtion when not mousedown
+            //.beginPaht(): method begins a path, or resets the current path.
+            context.beginPath();
+            //.moveTo(): Moves the path to the specified point in the canvas, without creating a line
+            context.moveTo(lastX, lastY);
+            //Adds a new point and creates a line to that point from the last specified point in the canvas
+            context.lineTo(e.offsetX, e.offsetY);
+
+            context.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+            console.log(e);
+        }
+
+        // function erase(){
+        //     // isDrawing = false;
+        //     // context.clearRect(e.offsetX, e.offsetY);
+        //     console.log('double-click for eraser');
+
+        // }
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        })
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+        // canvas.addEventListener('dblclick', () => erase);       
+
+    </script>
+</body>
+</html>

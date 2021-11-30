@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Bandnames</title>
+    <style>
+        html {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .Lizt {
+            height: max-content;
+            width: 30vh;
+            background-color: pink;
+            font-size: larger;
+            padding: 30px;
+
+        }
+
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Lizt">
+        <li></li>
+    </div>
+
+    <script>
+        const bands = ['The Plot in you', 'The Devil Wears Prada', 'Pierce the Veil',
+            'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans',
+            'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+
+        // function removeArticles(list) {
+        //     return list.replace(/a |the |an/i, '').trim();
+        // }
+
+        function removeArticles(list) {
+            return list.replace(/^(a |the |an )/i, '').trim();
+        }
+
+        const sortedBands = bands.sort((a, b) => (removeArticles(a) > removeArticles(b)) ? 1 : -1);
+
+        // console.log(sortedBands);
+        document.querySelector('.Lizt').innerHTML = sortedBands.map(band => `<li>${band}</li>`).join('');
+    </script>
+
+</body>
+
+</html>

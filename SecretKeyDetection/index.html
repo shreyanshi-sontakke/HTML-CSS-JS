@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+</head>
+<style>
+  h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+</style>
+<body>
+  <h3>whooooo! Lorem ipsum dolor sit amet consectetur adipisicing elit.
+     Reiciendis autem sed eaque officia possimus maxime dolore illum officiis consequatur, 
+     nulla accusamus optio doloribus qui eius nesciunt pariatur. Hic vitae voluptatibus aperiam ratione!</h3>
+<script>
+const pressed = [];
+const secretCode = 'barrelroll';
+
+function barrelRoll(){
+  var a="-webkit-", // vendor prefix for Chrome, Safari
+      b='transform:rotate(1turn);', // the CSS for rotating 360deg
+      c='transition:4s;'; // the CSS for making the rotation last 4 seconds
+      
+  document.head.innerHTML // adding a style tag to the <head>
+     += '<style>body{' + a + b + a + c + b + c // the combined CSS in the style tag
+}
+
+window.addEventListener('keyup', (e) => {
+  console.log(e.key);
+  pressed.push(e.key);//deleteCount: An integer indicating the number of elements in the array to remove from start. 
+  pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+  if (pressed.join('').includes(secretCode)) {
+    barrelRoll();
+  }
+  console.log(pressed);
+});
+</script>
+</body>
+</html>
